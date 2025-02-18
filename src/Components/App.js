@@ -1,7 +1,7 @@
-import React from 'react';
 import '../Styles/App.css';
-import Header from '../Components/Header';  
-import MainWeather from '../Components/MainWeather';  
+import Header from './Header';  
+import MainWeather from './MainWeather';  
+import Main from '../Main';
 
 function App() {
   return (
