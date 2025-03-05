@@ -2,7 +2,7 @@ import React from "react"
 import '../Styles/cities.css';
 
 function Citys({country,cityName,time,date, icon, temp, description}) {
-    const tempUnit = '°F';
+    const tempUnit = '°C';
     return (
         <div className="result">
             <h1>{cityName +", "+ country.slice(0,2).toUpperCase()}</h1>
