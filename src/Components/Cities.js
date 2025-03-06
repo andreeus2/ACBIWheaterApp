@@ -4,7 +4,6 @@ import '../Styles/cities.css';
 function Citys({ country, cityName, time, date, icon, temp, description }) {
     const temperatureUnit = localStorage.getItem("temperature") || "Celsius";
     const displayedTemp = temperatureUnit === "Celsius" ? temp.temp_c + " °C" : temp.temp_f + " °F";
-
     return (
         <div className="result">
             <h1>{cityName + ", " + country.slice(0,2).toUpperCase()}</h1>

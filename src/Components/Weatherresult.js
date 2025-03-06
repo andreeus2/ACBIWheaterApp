@@ -16,6 +16,12 @@ function Weatherresult() {
   const handleCityInput = (e) => {
     setCityInput(e.target.value);
   };
+  
+   const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      fetchWeather();
+    }
+  }
 
   const fetchWeather = async () => {
     if (!cityInput) return;
