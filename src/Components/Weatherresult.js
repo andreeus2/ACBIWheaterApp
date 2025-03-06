@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import '../Styles/weather.css'
-import Citys from "./Cities"
+import React, { useEffect, useState } from "react";
+import '../Styles/weather.css';
+import Citys from "./Cities";
 import { Link } from 'react-router-dom';
 
 function Weatherresult(test) {
@@ -23,6 +23,23 @@ function Weatherresult(test) {
     setweatherdata(weatherdata.filter(item => item.location.name !== cityName)); 
   }
 
+  // Event listener for Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      fetchWeather();
+    }
+  }
+
+  useEffect(() => {
+    // Add event listener when the component mounts
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [cityinput]); // Ensure the event listener listens to changes in cityinput
+
   return (
     <div className="result">
       <div className="search">
@@ -35,7 +52,7 @@ function Weatherresult(test) {
         />
         <button onClick={fetchWeather}>Search</button>
       </div>
-      <div className="container" >
+      <div className="container">
         {weatherdata.map(item => (
           <div key={item.location.name} className="weather-item">
             <div className="city-info">
@@ -56,7 +73,7 @@ function Weatherresult(test) {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 export default Weatherresult;
