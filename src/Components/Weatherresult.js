@@ -3,73 +3,67 @@ import '../Styles/weather.css';
 import Citys from "./Cities";
 import { Link } from 'react-router-dom';
 
-function Weatherresult(test) {
-  const [weatherdata, setweatherdata] = useState([]);
-  const [cityinput, setCityinput] = useState(""); 
+function Weatherresult() {
+  const [cityInput, setCityInput] = useState("");
+  const [weatherData, setWeatherData] = useState(JSON.parse(localStorage.getItem("weatherData")) || []);
+  const [temperatureUnit, setTemperatureUnit] = useState(localStorage.getItem("temperature") || "Celsius");
 
-  const citytext = (e) => {
-    setCityinput(e.target.value);
-  }
+  useEffect(() => {
+    localStorage.setItem("weatherData", JSON.stringify(weatherData));
+    localStorage.setItem("temperature", temperatureUnit);
+  }, [weatherData, temperatureUnit]);
 
-  const fetchWeather = async () => {
-    const data = await fetch(`http://api.weatherapi.com/v1/current.json?key=7a3ed539c9aa4341a9b74827251202&q=${cityinput}&aqi=no`);
-    const result = await data.json();
-    const newData = [result];
-    setweatherdata((prevRecords) => [...prevRecords, ...newData]);
-    setCityinput(""); 
-  }
-
-  const handleDelete = (cityName) => {
-    setweatherdata(weatherdata.filter(item => item.location.name !== cityName)); 
-  }
-
-  // Event listener for Enter key press
-  const handleKeyDown = (e) => {
+  const handleCityInput = (e) => {
+    setCityInput(e.target.value);
+  };
+  
+   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       fetchWeather();
     }
   }
 
-  useEffect(() => {
-    // Add event listener when the component mounts
-    window.addEventListener("keydown", handleKeyDown);
+  const fetchWeather = async () => {
+    if (!cityInput) return;
+    try {
+      const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=7a3ed539c9aa4341a9b74827251202&q=${cityInput}&aqi=no`);
+      const result = await response.json();
+      if (result.error) {
+        alert("City not found. Please try again.");
+        return;
+      }
+      setWeatherData((prevRecords) => [...prevRecords, result]);
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+    }
+  };
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [cityinput]); // Ensure the event listener listens to changes in cityinput
+  const convertToFahrenheit = (celsius) => {
+    return celsius !== undefined ? Math.round((celsius * 9/5) + 32) : "N/A";
+  };
 
   return (
     <div className="result">
       <div className="search">
         <Link to="/Settings">Settings</Link>
-        <input 
-          type="text" 
-          placeholder="Search a city..." 
-          value={cityinput} 
-          onChange={citytext}
-        />
+        <input type="text" placeholder="Search a city..." onChange={handleCityInput} value={cityInput} />
         <button onClick={fetchWeather}>Search</button>
       </div>
       <div className="container">
-        {weatherdata.map(item => (
-          <div key={item.location.name} className="weather-item">
-            <div className="city-info">
-              <p>{item.location.name}</p>
-              <p>{item.location.country}</p>
-              <p>{item.location.localtime.slice(0, 10)}</p>
-              <p>{item.location.localtime.slice(10)}</p>
-            </div>
-
-            <div className="icon-info">
-              <img src={`https:${item.current.condition.icon}`} alt={item.current.condition.text} />
-              <p className="condition-text">{item.current.temp_c}°C</p>
-              <p className="condition-text">{item.current.condition.text}</p>
-            </div>
-
-            <button onClick={() => handleDelete(item.location.name)} className="delete-button">Delete</button>
-          </div>
+        {weatherData.map(item => (
+          <Citys 
+            key={item.location?.name || Math.random()}
+            country={item.location?.country || "Unknown"} 
+            cityName={item.location?.name || "Unknown"} 
+            time={item.location?.localtime?.slice(10) || "N/A"} 
+            date={item.location?.localtime?.slice(0,10) || "N/A"} 
+            icon={item.current?.condition?.icon || ""} 
+            temp={{
+              temp_c: item.current?.temp_c !== undefined ? item.current.temp_c : "N/A",
+              temp_f: item.current?.temp_c !== undefined ? convertToFahrenheit(item.current.temp_c) : "N/A"
+            }}
+            description={item.current?.condition?.text || "No data"}
+          />
         ))}
       </div>
     </div>
