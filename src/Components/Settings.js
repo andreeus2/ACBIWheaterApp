@@ -1,17 +1,33 @@
-import "../Styles/settings.css"
+import "../Styles/settings.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Main.js"
-import "./Weatherresult"
+import "../Main.js";
+import "./Weatherresult";
 
 const Settings = () => {
   const navigate = useNavigate();
 
+  // States to handle user preferences
   const [temperature, setTemperatureUnit] = useState(localStorage.getItem("temperature") || "Celsius");
   const [textSize, setTextSize] = useState(localStorage.getItem("textSize") || "Normal");
   const [soundEffects, setSoundEffects] = useState(JSON.parse(localStorage.getItem("soundEffects")) ?? true);
-  const [brightness, setBrightness] = useState(localStorage.getItem("brightness") || 50);
+  const [brightness, setBrightness] = useState(localStorage.getItem("brightness") || 50); // Initial brightness from localStorage
 
+  // Apply the brightness globally using CSS with a minimum threshold
+  
+  useEffect(() => {
+    let fontSize;
+    if (textSize === "Normal") {
+      fontSize = "16px";
+    } else if (textSize === "Large") {
+      fontSize = "20px";
+    } else if (textSize === "Extra Large") {
+      fontSize = "24px";
+    }
+    document.documentElement.style.setProperty('--font-size', fontSize); // Set font size globally
+  }, [textSize]);
+
+  // Save all settings to localStorage
   useEffect(() => {
     localStorage.setItem("temperature", temperature);
     localStorage.setItem("textSize", textSize);
@@ -71,7 +87,14 @@ const Settings = () => {
       
       <div>
         <h3>Brightness</h3>
-        <input type="range" min="0" max="100" value={brightness} onChange={(e) => setBrightness(e.target.value)} />
+        <input 
+          type="range" 
+          min="10" 
+          max="100" 
+          value={brightness} 
+          onChange={(e) => setBrightness(e.target.value)} 
+        />
+        <p>{brightness}%</p> {/* Display the current brightness value */}
       </div>
       
       <div>

@@ -18,17 +18,17 @@ function Citys({ country, cityName, time, date, icon, temp, description, handleD
         <div className="weather-item">
            
             <div className="city-info">
-              <p>{cityName +", "+ country.slice(0,2).toUpperCase()}</p>
-              <p>{time}</p>
-               <p>{date}</p>
+                <p>{cityName +", "+ country.slice(0,2).toUpperCase()}</p>
+                <p>{time}</p>
+                <p>{date}</p>
             
             </div>
             
 
             <div className="icon-info">
-              <img src={icon}/>
-              <h1>{displayedTemp}</h1>
-              <p>{description}</p>
+                <img src={icon}/>
+                <h1>{displayedTemp}</h1>
+                <p>{description}</p>
             </div>
 
               <button onClick={() => handleDelete(cityName)} className="delete-button">Delete</button>

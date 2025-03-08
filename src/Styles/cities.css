@@ -13,6 +13,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+p, button, input, span, .weather-item {
+  font-size: var(--font-size); /* All elements that render text will use the variable */
+}
 
 .container .top {
   width: 100%;
