@@ -1,0 +1,183 @@
+
+.weather-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.weather-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.weather-item > div {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.city-info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.city-info p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+.icon-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-info img {
+  width: 60px;
+  height: 60px;
+}
+
+.icon-info p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #f44336;
+}
+
+.icon-info p.condition-text {
+  color: black;
+}
+
+button.delete-button {
+  position: absolute;
+  right: -30px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #f44336;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.8;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.weather-item:hover button.delete-button {
+  right: 10px;
+  width: 80px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+button.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+button.delete-button:active {
+  transform: scale(0.98);
+}
+
+button.delete-button span {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  padding: 0 10px;
+  display: inline-block;
+  text-align: center;
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  padding: 10px 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search input[type="text"]:focus {
+  border-color: #f44336;
+}
+
+.search button {
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search button:hover {
+  background-color: #d32f2f;
+}
+
+.search a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.search a:hover {
+  color: #ffffff;
+  background-color: #f44336;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.search a:active {
+  background-color: #d32f2f;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .search {
+    flex-direction: column;
+    align-items: stretch;
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .search input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
