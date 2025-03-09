@@ -99,12 +99,11 @@ const Settings = () => {
       
       <div>
         <h3>Weather Time</h3>
-        <p>(c) 2022 ABC Solutions Pty Ltd</p>
+        <p>(c) 2025 ABC Solutions Pty Ltd</p>
         <p>Version: 1.0</p>
-        <p>Last update: 4 February 2022</p>
-        <p>Build date: 4 February 2022</p>
-        <p>Developer: John Doe</p>
-        <p>Student number: 12345</p>
+        <p>Last update: 9 March 2025</p>
+        <p>Build date: 4 February 2025</p>
+        <p>Developer: Burak Kılıç, Ivan Trochez, Mikołaj Talik</p>
       </div>
       
       <div style={{ marginTop: "20px" }}>
